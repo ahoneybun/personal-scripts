@@ -4,7 +4,7 @@ echo "----------------------------------------"
 echo "| Decrypting drive and using lvm magic |"
 echo "----------------------------------------"
 
-sudo cryptsetup luksOpen /dev/sdc2 crypt-root
+sudo cryptsetup luksOpen /dev/sda2 crypt-root
 sudo lvscan
 sudo vgchange -ay
 
