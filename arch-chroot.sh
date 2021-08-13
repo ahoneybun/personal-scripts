@@ -24,4 +24,5 @@ echo "-----------------------"
 echo "| Entering the Matrix |"
 echo "-----------------------"
 
-sudo chroot /mnt /bin/bash
+sudo chroot /mnt /usr/bin/bash
+
