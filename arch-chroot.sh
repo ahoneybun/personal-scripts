@@ -13,7 +13,7 @@ echo "| Moving around and mounting up |"
 echo "---------------------------------"
 
 sudo mount /dev/mapper/crypt-root /mnt
-sudo mount /dev/sdc1 /mnt/boot
+sudo mount /dev/sda1 /mnt/boot
 sudo cp /etc/resolv.conf /mnt/etc/resolv.conf
 cd /mnt
 sudo mount -t proc /proc proc/
