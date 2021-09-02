@@ -4,7 +4,7 @@ echo "------------------------"
 echo "Updating System76 Docs |"
 echo "------------------------"
 echo ""
-cd ~/git/docs; git pull; cd ..
+cd ~/Git/Github/docs; git config pull.rebase false; git pull; cd ..
 
 echo ""
 echo "Done"
@@ -14,7 +14,7 @@ echo "-----------------------------"
 echo "Updating System76 Tech Docs |"
 echo "-----------------------------"
 echo ""
-cd ~/git/tech-docs; git pull; cd ..
+cd ~/Git/Github/tech-docs; git config pull.rebase false; git pull; cd ..
 
 echo ""
 echo "Done"
@@ -24,37 +24,27 @@ echo "--------------------------"
 echo "Updating System76 Driver |"
 echo "--------------------------"
 echo ""
-cd ~/git/system76-driver; git pull; cd ..
+cd ~/Git/Github/system76-driver; git config pull.rebase false; git pull; cd ..
 
 echo ""
 echo "Done"
 echo ""
 
-echo "-----------------"
-echo "Updating JOSHUA |"
-echo "-----------------"
+echo "-------------------"
+echo "Updating Firmware |"
+echo "-------------------"
 echo ""
-cd ~/git/joshua; git pull; cd ..
+cd ~/Git/Github/firmware; git config pull.rebase false; git pull; cd ..
 
 echo ""
 echo "Done"
 echo ""
 
-echo "-----------------"
-echo "Updating Artoo  |"
-echo "-----------------"
+echo "-----------------------"
+echo "Updating HiDPI Daemon |"
+echo "-----------------------"
 echo ""
-cd ~/git/artoo; git pull; cd ..
-
-echo ""
-echo "Done"
-echo ""
-
-echo "-----------------"
-echo "Updating Assets |"
-echo "-----------------"
-echo ""
-cd ~/git/assets; git pull; cd ..
+cd ~/Git/Github/hidpi-daemon; git config pull.rebase false; git pull; cd ..
 
 echo ""
 echo "Done"
