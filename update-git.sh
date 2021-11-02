@@ -14,7 +14,17 @@ echo "-----------------------------"
 echo "Updating System76 Tech Docs |"
 echo "-----------------------------"
 echo ""
-cd ~/Git/tech-docs; git pull; cd ..
+cd ~/Git/tech-docs; git pull; cd .
+
+echo ""
+echo "Done"
+echo ""
+
+echo "-------------------"
+echo "Updating Careteam |"
+echo "-------------------"
+echo ""
+cd ~/Git/careteam; git pull; cd ..
 
 echo ""
 echo "Done"
