@@ -4,7 +4,7 @@ echo "------------------------"
 echo "Updating System76 Docs |"
 echo "------------------------"
 echo ""
-cd ~/Git/docs; git pull; cd ..
+cd ~/Projects/system76/docs; git pull; cd ..
 
 echo ""
 echo "Done"
@@ -14,7 +14,7 @@ echo "-----------------------------"
 echo "Updating System76 Tech Docs |"
 echo "-----------------------------"
 echo ""
-cd ~/Git/tech-docs; git pull; cd .
+cd ~/Projects/system76/tech-docs; git pull; cd .
 
 echo ""
 echo "Done"
@@ -24,7 +24,7 @@ echo "-------------------"
 echo "Updating Careteam |"
 echo "-------------------"
 echo ""
-cd ~/Git/careteam; git pull; cd ..
+cd ~/Projects/system76/careteam; git pull; cd ..
 
 echo ""
 echo "Done"
@@ -34,7 +34,7 @@ echo "--------------------------"
 echo "Updating System76 Driver |"
 echo "--------------------------"
 echo ""
-cd ~/Git/system76-driver; git pull; cd ..
+cd ~/Projects/system76/system76-driver; git pull; cd ..
 
 echo ""
 echo "Done"
