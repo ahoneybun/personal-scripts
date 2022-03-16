@@ -40,16 +40,15 @@ echo ""
 echo "Done"
 echo ""
 
-echo "--------------"
-echo "Updating QMK |"
-echo "--------------"
+echo "-----------------------"
+echo "Updating System76 QMK |"
+echo "-----------------------"
 echo ""
 cd ~/Projects/system76/qmk_firmware; git pull; make git-submodule; cd ..
 
 echo ""
 echo "Done"
 echo ""
-
 echo "-------------------"
 echo "Updating Coreboot |"
 echo "-------------------"
@@ -79,3 +78,14 @@ cd ~/Projects/system76/firmware; git pull; cd ..
 echo ""
 echo "Done"
 echo ""
+
+echo "-----------------------"
+echo "Updating Upstream QMK |"
+echo "-----------------------"
+echo ""
+cd ~/Projects/personal/qmk_firmware; git pull; make git-submodule; cd ..
+
+echo ""
+echo "Done"
+echo ""
+
