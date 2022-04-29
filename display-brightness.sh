@@ -10,8 +10,8 @@ echo "---------------"
 echo -n "Enter choice: "; read choice
 case "$choice" in
 
-1) xrandr --output DisplayPort-0 --brightness 0.5
+1) xrandr --output eDP-1 --brightness 0.5
    ;;
-2) xrandr --output DisplayPort-0 --brightness 1
+2) xrandr --output eDP-1 --brightness 1
    ;;
 esac
