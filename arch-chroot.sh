@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 echo "----------------------------------------"
-echo "| Decrypting drive and using lvm magic |"
+echo "| Decrypting drive and using LVM magic |"
 echo "----------------------------------------"
 
 sudo cryptsetup luksOpen /dev/sda2 crypt-root
