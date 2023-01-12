@@ -1,6 +1,0 @@
-#!/usr/bin/env hush
-
-{
-   sh update-docs.hsh;
-   sh update-qmk.hsh;
-}

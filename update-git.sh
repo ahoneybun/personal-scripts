@@ -30,13 +30,3 @@ echo ""
 echo "Done"
 echo ""
 
-echo "--------------------------"
-echo "Updating System76 Driver |"
-echo "--------------------------"
-echo ""
-cd ~/Projects/system76/system76-driver; git pull; cd ..
-
-echo ""
-echo "Done"
-echo ""
-
