@@ -8,5 +8,5 @@ sh <(curl -L https://raw.githubusercontent.com/ahoneybun/personal-scripts/main/p
 ```
 
 ```bash
-sh <(curl -L s76.co/pang12-test)
+bash <(curl -L s76.co/pang12-test)
 ```
