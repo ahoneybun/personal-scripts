@@ -8,13 +8,13 @@ echo "Adjusted RAM Total: $ramTotal"
 if ! [ -x "$(command -v stress-ng)" ];
 then
   echo "Installing stress-ng..."
-  sudo apt install stress-ng -y
+  sudo apt install -y stress-ng
 fi
 
 if ! [ -x "$(command -v glmark2)" ];
 then 
   echo "Installing glmark2..."
-  sudo apt install glmark2 -y
+  sudo apt install -y glmark2
 fi
 
 # Run glmark2 in a new terminal window
