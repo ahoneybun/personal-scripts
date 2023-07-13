@@ -24,8 +24,8 @@ elif [ $testChoice = 2 ]; then
    if ! [ -x "$(command -v stress-ng)" ];
    then
      echo "Installing system76-cuda-latest..."
-     sudo apt install -y system76-cuda-latest 
+     sudo apt install -y system76-cuda-latest
    fi
-fi
+   echo "Testing"
 
 fi
