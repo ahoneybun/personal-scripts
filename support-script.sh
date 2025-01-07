@@ -6,9 +6,6 @@ file=""
 
 # Show help function
 show_help() {
-    echo "Usage: $0 --file FILE --verbose --help"
-    echo "  --file FILE         Specify a file"
-    echo "  --verbose           Enable verbose output"
     echo "  --help              Show this help message"
     echo "  --fix-apt           Fixes dpkg issues such as unconfigured"
     echo "  --clear-efi         Clears extra EFI variables from firmware"
