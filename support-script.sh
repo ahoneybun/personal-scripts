@@ -10,9 +10,10 @@ show_help() {
     echo "  --file FILE         Specify a file"
     echo "  --verbose           Enable verbose output"
     echo "  --help              Show this help message"
-    echo "  --dpkg-fix          Fixes dpkg issues such as unconfigured"
+    echo "  --fix-apt           Fixes dpkg issues such as unconfigured"
     echo "  --clear-efi         Clears extra EFI variables from firmware"
     echo "  --reinstall-nvidia  Reinstalls the NVIDIA driver"
+    echo "  --create-logs       Create journalctl file from the last 2 days"
 }
 
 dpkg_fix () {
@@ -58,6 +59,19 @@ reinstall_nvidia () {
     echo "--------------------------"
 }
 
+create_logs () {
+    echo "-------------"
+    echo "creating logs"
+    echo "-------------"
+    echo ""
+    journalctl -u pop-upgrade --since="2 days ago" >> ~/journalctl-2-days.txt
+    echo ""
+    echo "--------------------------------"
+    echo "logs created in your home folder"
+    echo "--------------------------------"
+
+}
+
 # Parse command line arguments manually
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -83,6 +97,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         --reinstall-nvidia)
             reinstall_nvidia
+            exit 0
+            ;;
+        --create-logs)
+            create_logs
             exit 0
             ;;
         *)
