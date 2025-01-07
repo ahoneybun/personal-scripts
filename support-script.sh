@@ -5,26 +5,50 @@ echo "Hello $USER what would you like to do today?"
 echo "------------------------------------------------------"
 echo ""
 
-echo "[1] Clear EFI entries from firmware"
-echo "[2] Fix Package Manager"
-echo "[3] Other common tasks"
-echo ""
+# Default values
+verbose=0
+file=""
 
-echo "------------------------------------------------------"
-echo -n "Enter choice: "; read choice
-case "$choice" in
+# Show help function
+show_help() {
+    echo "Usage: $0 --file FILE --verbose --help"
+    echo "  --file FILE    Specify a file"
+    echo "  --verbose      Enable verbose output"
+    echo "  --help         Show this help message"
+}
 
-    1)
-        for i in $(seq 0 9); do sudo efibootmgr -B -b 000$i 2>/dev/null; done
-        sudo bootctl --path=/boot/efi install
-    ;;
+dpkg_fix () {
+    sudo apt update
+    sudo dpkg --configure -a
+    sudo apt upgrade
+}
+# Parse command line arguments manually
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --file)
+            file="$2"
+            shift 2
+            ;;
+        --verbose)
+            verbose=1
+            shift
+            ;;
+        --help)
+            show_help
+            exit 0
+            ;;
+        --dpkg-fix)
+            dpkg_fix
+            exit 0
+            ;;
+        *)
+            echo "Invalid option: $1"
+            show_help
+            exit 1
+            ;;
+    esac
+done
 
-    2) 
-        sh support-backend/apt/main.sh
-    ;;
-
-    3)
-        sh support-backend/main.sh
-    ;;
-
-esac
+# Print the results
+echo "Verbose mode: $verbose"
+echo "File: $file"
