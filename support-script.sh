@@ -24,8 +24,21 @@ dpkg_fix () {
     echo "--------------------------"
     echo "finished!"
     echo "--------------------------"
-
 }
+
+clear_efi_variables () {
+    echo "----------------------------------------"
+    echo "clearing the EFI variables from firmware"
+    echo "----------------------------------------"
+    echo ""
+    for i in $(seq 0 9); do sudo efibootmgr -B -b 000$i 2>/dev/null; done
+    sudo bootctl --path=/boot/efi install
+    echo ""
+    echo "--------------------------"
+    echo "finished!"
+    echo "--------------------------"
+}
+
 # Parse command line arguments manually
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -43,6 +56,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         --fix-apt)
             dpkg_fix
+            exit 0
+            ;;
+        --clear-efi)
+            clear_efi_variables
             exit 0
             ;;
         *)
