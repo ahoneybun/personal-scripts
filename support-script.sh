@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# Default values
-verbose=0
-file=""
-
 # Show help function
 show_help() {
     echo "  --help              Show this help message"
@@ -118,6 +114,5 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-# Print the results
-echo "Verbose mode: $verbose"
-echo "File: $file"
+# Print help menu by default
+show_help
