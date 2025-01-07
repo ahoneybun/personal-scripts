@@ -9,18 +9,11 @@ show_help() {
     echo "Usage: $0 --file FILE --verbose --help"
     echo "  --file FILE         Specify a file"
     echo "  --verbose           Enable verbose output"
-    echo "  --sys-info          List system information"
     echo "  --help              Show this help message"
     echo "  --fix-apt           Fixes dpkg issues such as unconfigured"
     echo "  --clear-efi         Clears extra EFI variables from firmware"
+    echo "  --clear-firmware    Clears the downloaded firmware files and restarts the process"
     echo "  --reinstall-nvidia  Reinstalls the NVIDIA driver"
-    echo "  --create-logs       Create journalctl file from the last 2 days"
-}
-
-system_info () {
-    echo "=== System Information ==="; uname -r | awk '{print "Kernel Version: "$0}'; 
-    model_name=$(cat /proc/cpuinfo | awk -F': ' '/model name/ {print $2; exit}'); echo "CPU Model: $model_name";
-    ramTotal=$(free -h | awk '/^Mem:/{print $2}'| awk -FG {'print$1'}); echo "RAM Amount: $ramTotal"GB;
 }
 
 dpkg_fix () {
@@ -50,6 +43,12 @@ clear_efi_variables () {
     echo "--------------------------"
 }
 
+clear_firmware () {
+    sudo rm -r /var/cache/system76-firmware-daemon/
+    sudo system76-firmware-cli schedule
+    sudo systemctl reboot
+}
+
 reinstall_nvidia () {
     echo "----------------------------------------"
     echo "reinstalling the NVIDIA driver"
@@ -64,19 +63,6 @@ reinstall_nvidia () {
     echo "--------------------------"
     echo "finished!"
     echo "--------------------------"
-}
-
-create_logs () {
-    echo "-------------"
-    echo "creating logs"
-    echo "-------------"
-    echo ""
-    journalctl -u pop-upgrade --since="2 days ago" >> ~/journalctl-2-days.txt
-    echo ""
-    echo "--------------------------------"
-    echo "logs created in your home folder"
-    echo "--------------------------------"
-
 }
 
 # Parse command line arguments manually
@@ -94,10 +80,6 @@ while [[ $# -gt 0 ]]; do
             show_help
             exit 0
             ;;
-        --sys-info)
-            system_info
-            exit 0
-            ;;
         --fix-apt)
             dpkg_fix
             exit 0
@@ -106,12 +88,12 @@ while [[ $# -gt 0 ]]; do
             clear_efi_variables
             exit 0
             ;;
-        --reinstall-nvidia)
-            reinstall_nvidia
+        --clear-firmware)
+            clear_firmware
             exit 0
             ;;
-        --create-logs)
-            create_logs
+        --reinstall-nvidia)
+            reinstall_nvidia
             exit 0
             ;;
         *)
