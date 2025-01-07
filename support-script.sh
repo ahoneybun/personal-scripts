@@ -6,7 +6,7 @@ echo "------------------------------------------------------"
 echo ""
 
 echo "[1] Clear EFI entries from firmware"
-echo "[2] Fix package manager"
+echo "[2] Fix Package Manager"
 echo ""
 
 echo "------------------------------------------------------"
