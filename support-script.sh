@@ -1,10 +1,5 @@
 #!/bin/bash
 
-echo "------------------------------------------------------"
-echo "Hello $USER what would you like to do today?"
-echo "------------------------------------------------------"
-echo ""
-
 # Default values
 verbose=0
 file=""
@@ -18,9 +13,18 @@ show_help() {
 }
 
 dpkg_fix () {
+    echo "--------------------------"
+    echo "fixing the package manager"
+    echo "--------------------------"
+    echo ""
     sudo apt update
     sudo dpkg --configure -a
     sudo apt upgrade
+    echo ""
+    echo "--------------------------"
+    echo "finished!"
+    echo "--------------------------"
+
 }
 # Parse command line arguments manually
 while [[ $# -gt 0 ]]; do
@@ -37,7 +41,7 @@ while [[ $# -gt 0 ]]; do
             show_help
             exit 0
             ;;
-        --dpkg-fix)
+        --fix-apt)
             dpkg_fix
             exit 0
             ;;
