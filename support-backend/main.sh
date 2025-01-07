@@ -4,6 +4,7 @@ echo ""
 echo "Common Tasks"
 echo ""
 echo "[1] Find if an application is installed with flatpak or apt"
+echo "[2] List system information"
 echo ""
 
 echo "------------------------------------------------------"
@@ -21,5 +22,9 @@ case "$choice" in
         # Run apt search for the application
         apt list --installed | grep "$application" 2>/dev/null
     ;;
+
+    2) 
+        echo ""
+        echo "=== System Information ==="; uname -r | awk '{print "Kernel Version: "$0}'; sudo dmidecode -s bios-version | awk '{print "BIOS Version: "$0}'; sudo dmidecode -s system-product-name | awk '{print "System Model: "$0}'
 
 esac
