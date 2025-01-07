@@ -1,30 +1,118 @@
 #!/bin/bash
 
-echo "------------------------------------------------------"
-echo "Hello $USER what would you like to do today?"
-echo "------------------------------------------------------"
-echo ""
+# Show help function
+show_help() {
+    echo "  --help              Show this help message"
+    echo "  --fix-apt           Fixes dpkg issues such as unconfigured"
+    echo "  --clear-efi         Clears extra EFI variables from firmware"
+    echo "  --clear-firmware    Clears the downloaded firmware files and restarts the process"
+    echo "  --reinstall-nvidia  Reinstalls the NVIDIA driver"
+}
 
-echo "[1] Clear EFI entries from firmware"
-echo "[2] Fix Package Manager"
-echo "[3] Other common tasks"
-echo ""
+dpkg_fix () {
+    echo "------------------------------"
+    echo "| fixing the package manager |"
+    echo "------------------------------"
+    echo ""
+    sudo apt update
+    sudo dpkg --configure -a
+    sudo apt upgrade
+    echo ""
+    echo "-------------"
+    echo "| finished! |"
+    echo "-------------"
+}
 
-echo "------------------------------------------------------"
-echo -n "Enter choice: "; read choice
-case "$choice" in
+clear_efi_variables () {
+    echo "--------------------------------------------"
+    echo "| clearing the EFI variables from firmware |"
+    echo "--------------------------------------------"
+    echo ""
+    for i in $(seq 0 9); do sudo efibootmgr -B -b 000$i 2>/dev/null; done
+    sudo bootctl --path=/boot/efi install
+    echo ""
+    echo "-------------"
+    echo "| finished! |"
+    echo "-------------"
+}
 
-    1)
-        for i in $(seq 0 9); do sudo efibootmgr -B -b 000$i 2>/dev/null; done
-        sudo bootctl --path=/boot/efi install
-    ;;
+clear_firmware () {
+    echo "--------------------------------"
+    echo "| clearing downloaded firmware |"
+    echo "--------------------------------"
+    echo ""
+    sudo rm -r /var/cache/system76-firmware-daemon/
+    echo ""
+    echo "----------------------------------"
+    echo "| downloading the firmware again |"
+    echo "----------------------------------"
+    echo ""
+    sudo system76-firmware-cli schedule
+    echo ""
+    echo "-----------------------------------------"
+    echo "| Are we good to reboot the system now? |"
+    echo "-----------------------------------------"
 
-    2) 
-        sh support-backend/apt/main.sh
-    ;;
+    echo "[Y] Reboot the system"
+    echo "[N] Do not reboot"
+    echo ""
+    echo -n "Enter choice: "; read choice
+    case "$choice" in
+        Y)
+            sudo systemctl reboot
+            ;;
+        N)
+            exit 1
+        ;;
+    esac
+}
 
-    3)
-        sh support-backend/main.sh
-    ;;
+reinstall_nvidia () {
+    echo "-----------------------------------"
+    echo " | reinstalling the NVIDIA driver |"
+    echo "-----------------------------------"
+    echo ""
+    sudo apt purge ~nnvidia
+    sudo apt clean
+    sudo apt update
+    sudo apt install system76-driver-nvidia 
+    sudo apt install --reinstall system76-power
+    echo ""
+    echo "-------------"
+    echo "| finished! |"
+    echo "-------------"
+}
 
-esac
+# Parse command line arguments manually
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --help)
+            show_help
+            exit 0
+            ;;
+        --fix-apt)
+            dpkg_fix
+            exit 0
+            ;;
+        --clear-efi)
+            clear_efi_variables
+            exit 0
+            ;;
+        --clear-firmware)
+            clear_firmware
+            exit 0
+            ;;
+        --reinstall-nvidia)
+            reinstall_nvidia
+            exit 0
+            ;;
+        *)
+            echo "Invalid option: $1"
+            show_help
+            exit 1
+            ;;
+    esac
+done
+
+# Print help menu by default
+show_help
