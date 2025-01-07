@@ -9,11 +9,18 @@ show_help() {
     echo "Usage: $0 --file FILE --verbose --help"
     echo "  --file FILE         Specify a file"
     echo "  --verbose           Enable verbose output"
+    echo "  --sys-info          List system information"
     echo "  --help              Show this help message"
     echo "  --fix-apt           Fixes dpkg issues such as unconfigured"
     echo "  --clear-efi         Clears extra EFI variables from firmware"
     echo "  --reinstall-nvidia  Reinstalls the NVIDIA driver"
     echo "  --create-logs       Create journalctl file from the last 2 days"
+}
+
+system_info () {
+    echo "=== System Information ==="; uname -r | awk '{print "Kernel Version: "$0}'; 
+    model_name=$(cat /proc/cpuinfo | awk -F': ' '/model name/ {print $2; exit}'); echo "CPU Model: $model_name";
+    ramTotal=$(free -h | awk '/^Mem:/{print $2}'| awk -FG {'print$1'}); echo "RAM Amount: $ramTotal"GB;
 }
 
 dpkg_fix () {
@@ -85,6 +92,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         --help)
             show_help
+            exit 0
+            ;;
+        --sys-info)
+            system_info
             exit 0
             ;;
         --fix-apt)
