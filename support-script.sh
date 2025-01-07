@@ -7,9 +7,12 @@ file=""
 # Show help function
 show_help() {
     echo "Usage: $0 --file FILE --verbose --help"
-    echo "  --file FILE    Specify a file"
-    echo "  --verbose      Enable verbose output"
-    echo "  --help         Show this help message"
+    echo "  --file FILE         Specify a file"
+    echo "  --verbose           Enable verbose output"
+    echo "  --help              Show this help message"
+    echo "  --dpkg-fix          Fixes dpkg issues such as unconfigured"
+    echo "  --clear-efi         Clears extra EFI variables from firmware"
+    echo "  --reinstall-nvidia  Reinstalls the NVIDIA driver"
 }
 
 dpkg_fix () {
