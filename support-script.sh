@@ -39,6 +39,22 @@ clear_efi_variables () {
     echo "--------------------------"
 }
 
+reinstall_nvidia () {
+    echo "----------------------------------------"
+    echo "reinstalling the NVIDIA driver"
+    echo "----------------------------------------"
+    echo ""
+    sudo apt purge ~nnvidia
+    sudo apt clean
+    sudo apt update
+    sudo apt install system76-driver-nvidia 
+    sudo apt install --reinstall system76-power
+    echo ""
+    echo "--------------------------"
+    echo "finished!"
+    echo "--------------------------"
+}
+
 # Parse command line arguments manually
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -60,6 +76,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         --clear-efi)
             clear_efi_variables
+            exit 0
+            ;;
+        --reinstall-nvidia)
+            reinstall_nvidia
             exit 0
             ;;
         *)
