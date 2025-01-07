@@ -44,9 +44,34 @@ clear_efi_variables () {
 }
 
 clear_firmware () {
+    echo "----------------------------"
+    echo "clearing downloaded firmware"
+    echo "----------------------------"
+    echo ""
     sudo rm -r /var/cache/system76-firmware-daemon/
+    echo ""
+    echo "------------------------------"
+    echo "downloading the firmware again"
+    echo "------------------------------"
+    echo ""
     sudo system76-firmware-cli schedule
-    sudo systemctl reboot
+    echo ""
+    echo "-------------------------------------"
+    echo "Are we good to reboot the system now?"
+    echo "-------------------------------------"
+
+    echo "[1] Reboot the system"
+    echo "[0] Do not reboot"
+    echo ""
+    echo -n "Enter choice: "; read choice
+    case "$choice" in
+        1)
+            sudo systemctl reboot
+            ;;
+        0)
+            exit 1
+        ;;
+    esac
 }
 
 reinstall_nvidia () {
