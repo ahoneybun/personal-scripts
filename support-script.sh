@@ -17,67 +17,67 @@ show_help() {
 }
 
 dpkg_fix () {
-    echo "--------------------------"
-    echo "fixing the package manager"
-    echo "--------------------------"
+    echo "------------------------------"
+    echo "| fixing the package manager |"
+    echo "------------------------------"
     echo ""
     sudo apt update
     sudo dpkg --configure -a
     sudo apt upgrade
     echo ""
-    echo "--------------------------"
-    echo "finished!"
-    echo "--------------------------"
+    echo "-------------"
+    echo "| finished! |"
+    echo "-------------"
 }
 
 clear_efi_variables () {
-    echo "----------------------------------------"
-    echo "clearing the EFI variables from firmware"
-    echo "----------------------------------------"
+    echo "--------------------------------------------"
+    echo "| clearing the EFI variables from firmware |"
+    echo "--------------------------------------------"
     echo ""
     for i in $(seq 0 9); do sudo efibootmgr -B -b 000$i 2>/dev/null; done
     sudo bootctl --path=/boot/efi install
     echo ""
-    echo "--------------------------"
-    echo "finished!"
-    echo "--------------------------"
+    echo "-------------"
+    echo "| finished! |"
+    echo "-------------"
 }
 
 clear_firmware () {
-    echo "----------------------------"
-    echo "clearing downloaded firmware"
-    echo "----------------------------"
+    echo "--------------------------------"
+    echo "| clearing downloaded firmware |"
+    echo "--------------------------------"
     echo ""
     sudo rm -r /var/cache/system76-firmware-daemon/
     echo ""
-    echo "------------------------------"
-    echo "downloading the firmware again"
-    echo "------------------------------"
+    echo "----------------------------------"
+    echo "| downloading the firmware again |"
+    echo "----------------------------------"
     echo ""
     sudo system76-firmware-cli schedule
     echo ""
-    echo "-------------------------------------"
-    echo "Are we good to reboot the system now?"
-    echo "-------------------------------------"
+    echo "-----------------------------------------"
+    echo "| Are we good to reboot the system now? |"
+    echo "-----------------------------------------"
 
-    echo "[1] Reboot the system"
-    echo "[0] Do not reboot"
+    echo "[Y] Reboot the system"
+    echo "[N] Do not reboot"
     echo ""
     echo -n "Enter choice: "; read choice
     case "$choice" in
-        1)
+        Y)
             sudo systemctl reboot
             ;;
-        0)
+        N)
             exit 1
         ;;
     esac
 }
 
 reinstall_nvidia () {
-    echo "----------------------------------------"
-    echo "reinstalling the NVIDIA driver"
-    echo "----------------------------------------"
+    echo "-----------------------------------"
+    echo " | reinstalling the NVIDIA driver |"
+    echo "-----------------------------------"
     echo ""
     sudo apt purge ~nnvidia
     sudo apt clean
@@ -85,22 +85,14 @@ reinstall_nvidia () {
     sudo apt install system76-driver-nvidia 
     sudo apt install --reinstall system76-power
     echo ""
-    echo "--------------------------"
-    echo "finished!"
-    echo "--------------------------"
+    echo "-------------"
+    echo "| finished! |"
+    echo "-------------"
 }
 
 # Parse command line arguments manually
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        --file)
-            file="$2"
-            shift 2
-            ;;
-        --verbose)
-            verbose=1
-            shift
-            ;;
         --help)
             show_help
             exit 0
