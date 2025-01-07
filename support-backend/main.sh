@@ -2,6 +2,7 @@
 
 echo ""
 echo "Common Tasks"
+echo ""
 echo "[1] Find if an application is installed with flatpak or apt"
 echo ""
 
@@ -10,6 +11,7 @@ echo -n "Enter choice: "; read choice
 case "$choice" in
 
     1)
+        echo ""
         echo -n "What is the application name? "; read application
         echo "Searching for '$application'..."
 
@@ -17,7 +19,7 @@ case "$choice" in
         flatpak list | grep "$application"
 
         # Run apt search for the application
-        apt list --installed | grep "$application"
+        apt list --installed | grep "$application" 2>/dev/null
     ;;
 
 esac
