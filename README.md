@@ -6,7 +6,7 @@ Just some handly scripts that I wrote
 ### Support Help Suite
 
 ```bash
-bash <(curl -L https://raw.githubusercontent.com/ahoneybun/personal-scripts/main/support-script.sh)
+bash <(curl -sL https://raw.githubusercontent.com/ahoneybun/personal-scripts/main/support-script.sh)
 ```
 
 Options:
@@ -25,5 +25,5 @@ Usage: ./support-script.sh --file FILE --verbose --help
 ### S76 Test Suite
 
 ```bash
-bash <(curl -L https://raw.githubusercontent.com/ahoneybun/personal-scripts/main/s76-test-suite/pang12-test.sh)
+bash <(curl -sL https://raw.githubusercontent.com/ahoneybun/personal-scripts/main/s76-test-suite/pang12-test.sh)
 ```
