@@ -2,11 +2,13 @@
 
 # Show help function
 show_help() {
-    echo "  --help              Show this help message"
-    echo "  --fix-apt           Fixes dpkg issues such as unconfigured"
-    echo "  --clear-efi         Clears extra EFI variables from firmware"
-    echo "  --clear-firmware    Clears the downloaded firmware files and restarts the process"
-    echo "  --reinstall-nvidia  Reinstalls the NVIDIA driver"
+    echo "  --help                Show this help message"
+    echo "  --fix-apt             Fixes dpkg issues such as unconfigured"
+    echo "  --fix-flatpak         Fixes common flatpak issues"
+    echo "  --fix-system76-power  Fixes system76-power configure issue"
+    echo "  --clear-efi           Clears extra EFI variables from firmware"
+    echo "  --clear-firmware      Clears the downloaded firmware files and restarts the process"
+    echo "  --reinstall-nvidia    Reinstalls the NVIDIA driver"
 }
 
 dpkg_fix () {
@@ -17,6 +19,40 @@ dpkg_fix () {
     sudo apt update
     sudo dpkg --configure -a
     sudo apt upgrade
+    echo ""
+    echo "-------------"
+    echo "| finished! |"
+    echo "-------------"
+}
+
+flatpak_fix () {
+    echo "------------------"
+    echo "| fixing flatpak |"
+    echo "------------------"
+    echo ""
+    flatpak update --appstream
+    flatpak repair --user
+    sudo flatpak repair --system
+    flatpak update
+    flatpak uninstall --unused
+    echo ""
+    echo "-------------"
+    echo "| finished! |"
+    echo "-------------"
+}
+
+system76_power_fix () {
+    echo "-------------------------"
+    echo "| fixing system76-power |"
+    echo "-------------------------"
+    echo ""
+    sudo systemctl unmask com.system76.PowerDaemon.service
+    sudo apt clean
+    sudo apt update -m
+    sudo dpkg --configure -a
+    sudo apt install -f
+    sudo apt full-upgrade
+    sudo apt autoremove --purge
     echo ""
     echo "-------------"
     echo "| finished! |"
@@ -92,6 +128,14 @@ while [[ $# -gt 0 ]]; do
             ;;
         --fix-apt)
             dpkg_fix
+            exit 0
+            ;;
+        --fix-flatpak)
+            flatpak_fix
+            exit 0
+            ;;
+        --fix-system76-power)
+            system76_power_fix
             exit 0
             ;;
         --clear-efi)
