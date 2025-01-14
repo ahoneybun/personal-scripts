@@ -6,6 +6,7 @@ show_help() {
     echo "  --fix-apt             Fixes dpkg issues such as unconfigured"
     echo "  --fix-flatpak         Fixes common flatpak issues"
     echo "  --fix-system76-power  Fixes system76-power configure issue"
+    echo "  --fix-brave           Fixes Brave's source file"
     echo "  --clear-efi           Clears extra EFI variables from firmware"
     echo "  --clear-firmware      Clears the downloaded firmware files and restarts the process"
     echo "  --reinstall-nvidia    Reinstalls the NVIDIA driver"
@@ -53,6 +54,18 @@ system76_power_fix () {
     sudo apt install -f
     sudo apt full-upgrade
     sudo apt autoremove --purge
+    echo ""
+    echo "-------------"
+    echo "| finished! |"
+    echo "-------------"
+}
+
+fix_brave () {
+    echo "-----------------------------"
+    echo "| fixing Brave's repository |"
+    echo "-----------------------------"
+    echo ""
+    sudo sed -i 's/deb \[signed-by=/deb [arch=amd64 signed-by=/' /etc/apt/sources.list.d/brave-browser-release.list
     echo ""
     echo "-------------"
     echo "| finished! |"
@@ -136,6 +149,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         --fix-system76-power)
             system76_power_fix
+            exit 0
+            ;;
+        --fix-brave)
+            fix_brave
             exit 0
             ;;
         --clear-efi)
