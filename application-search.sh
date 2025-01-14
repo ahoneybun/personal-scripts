@@ -1,8 +1,6 @@
 #!/bin/bash
 
 echo ""
-echo "Common Tasks"
-echo ""
 echo "[1] Find if an application is installed with flatpak or apt"
 echo ""
 
