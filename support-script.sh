@@ -1,5 +1,25 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
+# Terminal formatting
+if [ -t 1 ]; then
+    BOLD=$(tput bold)
+    YELLOW=$(tput setaf 3)
+    RESET=$(tput sgr0)
+else
+    BOLD=""
+    YELLOW=""
+    RESET=""
+fi
+
+# Function to print the script title in yellow and bold at the top of the terminal
+print_title() {
+    echo "---------------------------------------------------"
+    echo " ${BOLD}${YELLOW}Support Script${RESET}            "
+    echo " This provides some quick fixes to common issues   "
+    echo "---------------------------------------------------"
+    echo ""
+} 
+   
 # Show help function
 show_help() {
     echo "  --help                Show this help message"
@@ -158,5 +178,6 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-# Print help menu by default
+# Print title and help menu by default
+print_title
 show_help
