@@ -1,5 +1,25 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
+# Terminal formatting
+if [ -t 1 ]; then
+    BOLD=$(tput bold)
+    YELLOW=$(tput setaf 3)
+    RESET=$(tput sgr0)
+else
+    BOLD=""
+    YELLOW=""
+    RESET=""
+fi
+
+# Function to print the script title in yellow and bold at the top of the terminal
+print_title() {
+    echo "---------------------------------------------------"
+    echo " ${BOLD}${YELLOW}Support Script${RESET}            "
+    echo " This provides some quick fixes to common issues   "
+    echo "---------------------------------------------------"
+    echo ""
+} 
+   
 # Show help function
 show_help() {
     echo "  --help                Show this help message"
@@ -17,13 +37,14 @@ dpkg_fix () {
     echo "| fixing the package manager |"
     echo "------------------------------"
     echo ""
-    sudo apt update
+    pkexec sudo apt update
     sudo dpkg --configure -a
     sudo apt upgrade
     echo ""
     echo "-------------"
     echo "| finished! |"
     echo "-------------"
+    notify-send "Support Script" "fixing apt function has been completed"
 }
 
 flatpak_fix () {
@@ -33,13 +54,14 @@ flatpak_fix () {
     echo ""
     flatpak update --appstream
     flatpak repair --user
-    sudo flatpak repair --system
+    pkexec sudo flatpak repair --system
     flatpak update
     flatpak uninstall --unused
     echo ""
     echo "-------------"
     echo "| finished! |"
     echo "-------------"
+    notify-send "Support Script" "fixing flatpak function has been completed"
 }
 
 system76_power_fix () {
@@ -47,7 +69,7 @@ system76_power_fix () {
     echo "| fixing system76-power |"
     echo "-------------------------"
     echo ""
-    sudo systemctl unmask com.system76.PowerDaemon.service
+    pkexec sudo systemctl unmask com.system76.PowerDaemon.service
     sudo apt clean
     sudo apt update -m
     sudo dpkg --configure -a
@@ -58,6 +80,7 @@ system76_power_fix () {
     echo "-------------"
     echo "| finished! |"
     echo "-------------"
+    notify-send "Support Script" "fixing system76-power function has been completed"
 }
 
 fix_brave () {
@@ -83,6 +106,7 @@ clear_efi_variables () {
     echo "-------------"
     echo "| finished! |"
     echo "-------------"
+    notify-send "Support Script" "clearing the EFI variables function has been completed"
 }
 
 clear_firmware () {
@@ -130,6 +154,7 @@ reinstall_nvidia () {
     echo "-------------"
     echo "| finished! |"
     echo "-------------"
+    notify-send "Support Script" "reinstalling NVIDIA driver function has been completed"
 }
 
 # Parse command line arguments manually
@@ -175,5 +200,6 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-# Print help menu by default
+# Print title and help menu by default
+print_title
 show_help
