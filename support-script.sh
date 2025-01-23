@@ -37,8 +37,8 @@ dpkg_fix () {
     echo "------------------------------"
     echo ""
     pkexec sudo apt update
-    pkexec sudo dpkg --configure -a
-    pkexec sudo apt upgrade
+    sudo dpkg --configure -a
+    sudo apt upgrade
     echo ""
     echo "-------------"
     echo "| finished! |"
@@ -53,7 +53,7 @@ flatpak_fix () {
     echo ""
     flatpak update --appstream
     flatpak repair --user
-    sudo flatpak repair --system
+    pkexec sudo flatpak repair --system
     flatpak update
     flatpak uninstall --unused
     echo ""
@@ -68,7 +68,7 @@ system76_power_fix () {
     echo "| fixing system76-power |"
     echo "-------------------------"
     echo ""
-    sudo systemctl unmask com.system76.PowerDaemon.service
+    pkexec sudo systemctl unmask com.system76.PowerDaemon.service
     sudo apt clean
     sudo apt update -m
     sudo dpkg --configure -a
@@ -79,6 +79,7 @@ system76_power_fix () {
     echo "-------------"
     echo "| finished! |"
     echo "-------------"
+    notify-send "Support Script" "fixing system76-power function has been completed"
 }
 
 clear_efi_variables () {
@@ -92,6 +93,7 @@ clear_efi_variables () {
     echo "-------------"
     echo "| finished! |"
     echo "-------------"
+    notify-send "Support Script" "clearing the EFI variables function has been completed"
 }
 
 clear_firmware () {
@@ -139,6 +141,7 @@ reinstall_nvidia () {
     echo "-------------"
     echo "| finished! |"
     echo "-------------"
+    notify-send "Support Script" "reinstalling NVIDIA driver function has been completed"
 }
 
 # Parse command line arguments manually
