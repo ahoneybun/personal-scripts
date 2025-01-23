@@ -36,13 +36,14 @@ dpkg_fix () {
     echo "| fixing the package manager |"
     echo "------------------------------"
     echo ""
-    sudo apt update
-    sudo dpkg --configure -a
-    sudo apt upgrade
+    pkexec sudo apt update
+    pkexec sudo dpkg --configure -a
+    pkexec sudo apt upgrade
     echo ""
     echo "-------------"
     echo "| finished! |"
     echo "-------------"
+    notify-send "Support Script" "fixing apt function has been completed"
 }
 
 flatpak_fix () {
@@ -59,6 +60,7 @@ flatpak_fix () {
     echo "-------------"
     echo "| finished! |"
     echo "-------------"
+    notify-send "Support Script" "fixing flatpak function has been completed"
 }
 
 system76_power_fix () {
